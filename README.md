@@ -58,7 +58,7 @@ end
 This approach isn't recommended unless you're in a context where using the class helper is impossible, such as a template (ERB, etc.) or a block which is executed by a framework. You can also call the `packages` method directly on the `Inclusive` module:
 
 ```ruby
-my_math = Inclusive.packages(MyOrg::Math)
+my_math = Inclusive.packages[MyOrg::Math]
 ```
 
 If you want to be able to call a package method directly on its own module, you can extend your module and use the `public_function` helper:
