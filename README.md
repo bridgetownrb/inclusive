@@ -61,6 +61,25 @@ This approach isn't recommended unless you're in a context where using the class
 my_math = Inclusive.packages[MyOrg::Math]
 ```
 
+Class-level methods can also be created using `packages` on the "class instance" (aka singleton class) which is also helpful for other modules:
+
+```ruby
+module MyModule
+  class << self
+    extend Inclusive::Class
+
+    packages def utils = [
+      Packages::ThingOne,
+      Packages::ThingTwo,
+    ]
+  end
+end
+
+MyModule.utils.run # a method from one of the imported packages
+```
+
+### Public Package Methods
+
 If you want to be able to call a package method directly on its own module, you can extend your module and use the `public_function` helper:
 
 ```ruby
