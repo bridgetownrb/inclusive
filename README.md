@@ -43,7 +43,7 @@ class GetToThePoint
 end
 ```
 
-The import syntax is an array because you can import multiple packages. The imported packages will "compose" together, meaning the methods from the various package modules will all be available simultaneously.
+The import syntax is an array because you can import multiple packages. The imported packages will "compose" together, meaning the methods from the various package modules will all be available simultaneously. (Under the hood, a new anonymous module is created with mixins of the modules you are importing as the packages.)
 
 In addition to creating instance methods using the `packages` class helper, you can use the `packages` method inline:
 
@@ -104,37 +104,15 @@ Packages::MyPackage.some_method
 
 This is only recommended if you need to mantain an existing module's legacy behavior in a codebase while incrementally adopting Inclusive.
 
-### Packages Are Duplicated
+## but y tho
 
-One of the aspects of Inclusive which make it more useful than merely using standard Ruby modules is each imported package is actually a cloned module. This means a module can actually contain internal state, much like an object:
+Why is this gem even needed? Well, any significantly-large project (and certainly the [Bridgetown framework](https://wwww.bridgetownrb.com) which gave rise to this effort) will have a "pile o' functions" which are loosely-related at best. Sometimes they're all crammed into a giant utility module or two, other times they're broken out into a handful of classes or whatever…even if they don't really need to be classes in the traditional object-oriented sense. Many other languages don't seem to have an issue with just writing utility functions and explicitly importing them in places where they're needed, but that hasn't been The Ruby Way. 
 
-```ruby
-module Packages
-  module Ownership
-    attr_accessor :owner
+Until now. 😄
 
-    def owner_classname
-      owner.class.name
-    end
-  end
-end
+Maybe Inclusive isn't for you, but for what we need, it gets the job done. Give it a try!
 
-class SomeObject
-  def try_out_ownership
-    ownership = packages[Package::Ownership].tap { _1.owner = self }
-
-    puts ownership.owner_classname # this will be `SomeObject`
-  end
-end
-
-class SomeOtherObject
-  def try_out_ownership
-    ownership = packages[Package::Ownership].tap { _1.owner = self }
-
-    puts ownership.owner_classname # this will be `SomeOtherObject`
-  end
-end
-```
+----
 
 ## Development
 
