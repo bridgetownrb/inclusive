@@ -104,7 +104,7 @@ Packages::MyPackage.some_method
 
 This is only recommended if you need to mantain an existing module's legacy behavior in a codebase while incrementally adopting Inclusive.
 
-## but y tho
+## but y tho 🤔
 
 Why is this gem even needed? Well, any significantly-large project (and certainly the [Bridgetown framework](https://www.bridgetownrb.com) which gave rise to this effort) will have a "pile o' functions" which are loosely-related at best. Sometimes they're all crammed into a giant utility module or two, other times they're broken out into a handful of classes or whatever…even if they don't really need to be classes in the traditional object-oriented sense. Many other languages don't seem to have an issue with just writing utility functions and explicitly importing them in places where they're needed, but that hasn't been The Ruby Way. 
 
